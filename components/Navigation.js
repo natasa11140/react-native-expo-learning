@@ -1,4 +1,5 @@
 import { createStackNavigator } from "@react-navigation/stack";
+import LoginScreen from "../pages/LoginScreen";
 import HomeScreen from "../pages/HomeScreen";
 import DetailsScreen from "../pages/DatailsScreen";
 import ProfileScreen from "../pages/ProfileScreen";
@@ -8,11 +9,13 @@ import StyleExample from "../pages/StyleExample";
 import FlexboxExample from "../pages/FlexboxExample";
 import GridExample from "../pages/GridExample";
 
+
 const Stack = createStackNavigator();
 
 export default function NavigationContainer(){
     return (
         <Stack.Navigator>
+            <Stack.Screen name="Login" component={LoginScreen} />
             <Stack.Screen name="Profile" component={ProfileScreen} />
             <Stack.Screen name="Home" component={HomeScreen} />
             <Stack.Screen name="Details" component={DetailsScreen} />
