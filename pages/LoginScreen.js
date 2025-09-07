@@ -1,85 +1,45 @@
-import { useState } from "react";
-import { View, Text, TextInput, Button, StyleSheet, Alert } from "react-native";
+// src/screens/LoginScreen.js
+import React, { useState } from 'react';
+import { View, Text, TextInput, Button, StyleSheet, Alert } from 'react-native';
 
+const LoginScreen = ({ navigation }) => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
-const storeData = async (value) => {
-    try {
-        await AsyncStorage.setItem('userToken', value);
-    } catch (e) {
-        console.log('Failed to save the data to the storage', e);
+  const handleLogin = () => {
+    if (email === 'test@demo.com' && password === '123456') {
+      // นำทางไปหน้าหลัก (Tabs)
+      navigation.navigate('MainTabs');
+    } else {
+      Alert.alert('Login Failed', 'Invalid email or password.');
     }
+  };
+
+  return (
+    <View style={styles.container}>
+      <Text style={styles.title}>Login</Text>
+      <TextInput
+        style={styles.input}
+        placeholder="Email"
+        value={email}
+        onChangeText={setEmail}
+        keyboardType="email-address"
+        autoCapitalize="none"
+      />
+      <TextInput
+        style={styles.input}
+        placeholder="Password"
+        value={password}
+        onChangeText={setPassword}
+        secureTextEntry
+      />
+      <Button title="Login" onPress={handleLogin} />
+    </View>
+  );
 };
-
-const getData = async () => {
-    try {
-        const value = await AsyncStorage.getItem('userToken');
-        if (value !== null) {
-            console.log(value);
-        }
-    } catch (e) {
-        console.log('Failed to fetch the data from storage', e);
-    }
-};
-
-const removeData = async () => {
-    try {
-        await AsyncStorage.removeItem('userToken');
-    } catch (e) {
-        console.log('Failed to remove the data from storage', e);
-    }
-};
-
-export default function LoginScreen({ navigation }) {
-    const [username, setUsername] = useState('');
-    const [password, setPassword] = useState('');
-
-    return (
-        <View style={styles.container}>
-            <Text style={styles.title}>Login</Text>
-            <TextInput
-                style={styles.input}
-                placeholder="Username"
-                value={username}
-                onChangeText={setUsername}
-            />
-            <TextInput
-                style={styles.input}
-                placeholder="Password"
-                value={password}
-                onChangeText={setPassword}
-                secureTextEntry
-            />
-            <Button
-                title="Login"
-                onPress={() => {
-                    if (username === "username" && password === "password") {
-                        storeData('loggedIn');
-                        navigation.replace("Profile");
-                    } else {
-                        Alert.alert("Invalid credentials", "Please check your username and password.");
-                    }
-                }}
-            />
-        </View>
-    );
-}
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        justifyContent: "center",
-        padding: 20,
-    },
-    title: {
-        fontSize: 24,
-        marginBottom: 20,
-        textAlign: "center",
-    },
-    input: {
-        height: 40,
-        borderColor: "gray",
-        borderWidth: 1,
-        marginBottom: 20,
-        paddingHorizontal: 10,
-    },
+  // เพิ่ม StyleSheet เพื่อจัดหน้าให้สวยงาม
 });
+
+export default LoginScreen;
